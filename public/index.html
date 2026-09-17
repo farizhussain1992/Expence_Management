@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b19" />
+    <meta
+      name="description"
+      content="Lumen is a calm, local-first dashboard for understanding your spending and cash flow."
+    />
+    <title>Lumen — Personal finance, made clear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Lumen home">
+          <span class="brand-mark">✦</span>
+          <span>Lumen</span>
+        </a>
+        <p class="eyebrow sidebar-label">Workspace</p>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-item active" href="#overview"><span>◈</span> Overview</a>
+          <a class="nav-item" href="transactions.html"><span>↗</span> Transactions</a>
+          <a class="nav-item" href="#accounts"><span>◉</span> Accounts</a>
+          <a class="nav-item" href="#categories" id="categories-nav"><span>◌</span> Categories</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="tip-card">
+            <span class="tip-icon">✧</span>
+            <strong>Small steps, big picture.</strong>
+            <p>Review your flow once a week and let the patterns do the talking.</p>
+          </div>
+          <button class="nav-item settings-button" type="button" id="theme-toggle"><span>☼</span> Light theme</button>
+          <button class="nav-item settings-button" type="button" id="clear-data"><span>⚙</span> Reset demo data</button>
+          <p class="sidebar-footnote">Lumen v1.0 · local-first</p>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark">✦</span> Lumen</div>
+          <div class="date-stamp"><span class="status-dot"></span> Your space · <span id="today-label"></span></div>
+          <button class="avatar" aria-label="User profile">AK</button>
+        </header>
+
+        <section class="hero dashboard-hero" id="overview">
+          <div>
+            <span class="hero-badge"><i></i> Live overview</span>
+            <p class="eyebrow">Monday, <span id="hero-date"></span></p>
+            <h1>Good morning, Alex <span class="wave">✋</span></h1>
+            <p class="hero-copy">Here’s the shape of your money this month.</p>
+          </div>
+          <button class="primary-button" id="open-transaction"><span>＋</span> Add transaction</button>
+        </section>
+
+        <section class="stats-grid" aria-label="Financial summary">
+          <article class="stat-card feature-card">
+            <div class="stat-heading"><span class="stat-icon violet">↗</span><span>Net cash flow</span><span class="trend positive" id="flow-trend">+12.4%</span></div>
+            <div class="stat-value" id="net-flow">$0.00</div>
+            <div class="sparkline" aria-hidden="true"><span style="height: 30%"></span><span style="height: 46%"></span><span style="height: 38%"></span><span style="height: 62%"></span><span style="height: 51%"></span><span style="height: 76%"></span><span style="height: 69%"></span><span style="height: 92%"></span></div>
+            <p class="stat-caption">vs. previous 30 days</p>
+          </article>
+          <article class="stat-card">
+            <div class="stat-heading"><span class="stat-icon green">↓</span><span>Total income</span></div>
+            <div class="stat-value" id="total-income">$0.00</div>
+            <p class="stat-caption">Money in this month</p>
+            <div class="progress-line"><span id="income-progress" class="income-progress"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-heading"><span class="stat-icon orange">↑</span><span>Total expenses</span></div>
+            <div class="stat-value" id="total-expenses">$0.00</div>
+            <p class="stat-caption">Money out this month</p>
+            <div class="progress-line"><span class="expense-progress"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-heading"><span class="stat-icon blue">◎</span><span>Total balance</span></div>
+            <div class="stat-value" id="total-balance">$0.00</div>
+            <p class="stat-caption"><span class="green-text">●</span> Across all accounts</p>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="panel cashflow-panel">
+            <div class="panel-header">
+              <div><p class="eyebrow">Cash flow</p><h2>Income vs. expenses</h2></div>
+              <select class="period-select" id="period-select" aria-label="Cash flow period"><option value="6">Last 6 months</option><option value="12">Last 12 months</option></select>
+            </div>
+            <div class="chart-legend"><span><i class="legend-dot income-dot"></i> Income</span><span><i class="legend-dot expense-dot"></i> Expenses</span></div>
+            <div class="bar-chart" id="bar-chart" aria-label="Income versus expenses chart"></div>
+            <div class="chart-hint">Hover a month to inspect the details</div>
+          </article>
+          <article class="panel breakdown-panel" id="categories">
+            <div class="panel-header"><div><p class="eyebrow">Spending map</p><h2>Where it goes</h2></div><button class="icon-button" id="manage-categories" aria-label="Manage categories">＋</button></div>
+            <div class="donut-wrap"><div class="donut" id="donut-chart" aria-label="Spending breakdown"><div class="donut-center"><strong id="donut-total">$0</strong><span>spent</span></div></div></div>
+            <div class="category-list" id="category-list"></div>
+          </article>
+        </section>
+
+        <section class="bottom-grid" id="transactions">
+          <article class="panel transactions-panel">
+            <div class="panel-header"><div><p class="eyebrow">Activity</p><h2>Recent transactions</h2></div><a class="text-button" href="transactions.html">View all <span>→</span></a></div>
+            <div class="filters"><label class="search-field"><span>⌕</span><input id="search-input" type="search" placeholder="Search transactions..." /></label><select id="type-filter" aria-label="Filter by transaction type"><option value="all">All types</option><option value="income">Income</option><option value="expense">Expense</option></select><select id="category-filter" aria-label="Filter by category"><option value="all">All categories</option></select></div>
+            <div class="table-wrap"><table><thead><tr><th><button data-sort="date">Date ↕</button></th><th><button data-sort="description">Description ↕</button></th><th><button data-sort="category">Category ↕</button></th><th><button data-sort="account">Account ↕</button></th><th><button data-sort="amount">Amount ↕</button></th></tr></thead><tbody id="transaction-list"></tbody></table><div class="empty-state hidden" id="empty-state">No transactions match these filters.</div></div>
+          </article>
+          <article class="panel accounts-panel" id="accounts">
+            <div class="panel-header"><div><p class="eyebrow">Accounts</p><h2>Your money</h2></div><button class="icon-button" id="open-account" aria-label="Add account">＋</button></div>
+            <div class="account-list" id="account-list"></div>
+            <button class="secondary-button full-width" id="open-account-bottom">Manage accounts <span>→</span></button>
+          </article>
+        </section>
+
+        <footer class="footer">Built for clarity, not complexity. <span>✦</span> Your data stays in this browser.</footer>
+      </main>
+    </div>
+
+    <div class="modal-backdrop hidden" id="transaction-modal" role="dialog" aria-modal="true" aria-labelledby="transaction-title">
+      <form class="modal" id="transaction-form">
+        <button class="modal-close" type="button" data-close="transaction-modal" aria-label="Close">×</button>
+        <p class="eyebrow">New activity</p><h2 id="transaction-title">Add transaction</h2><p class="modal-subtitle">Keep your money story up to date.</p>
+        <div class="flow-toggle"><button type="button" class="flow-option active" data-type="expense">Expense</button><button type="button" class="flow-option" data-type="income">Income</button></div>
+        <input type="hidden" id="transaction-type" value="expense" /><input type="hidden" id="editing-id" />
+        <div class="form-grid"><label>Description<input required id="description" placeholder="e.g. Weekly groceries" /></label><label>Amount<input required id="amount" type="number" min="0.01" step="0.01" placeholder="0.00" /></label><label>Date<input required id="date" type="date" /></label><label>Account<select required id="account-select"></select></label><label>Category<select required id="category-select"></select></label></div>
+        <button class="primary-button full-width" type="submit">Save transaction</button>
+      </form>
+    </div>
+
+    <div class="modal-backdrop hidden" id="account-modal" role="dialog" aria-modal="true">
+      <form class="modal" id="account-form"><button class="modal-close" type="button" data-close="account-modal" aria-label="Close">×</button><p class="eyebrow">New account</p><h2>Add an account</h2><p class="modal-subtitle">See everything in one calm view.</p><div class="form-grid"><label>Account name<input required id="account-name" placeholder="e.g. Travel fund" /></label><label>Account type<select id="account-type"><option>Checking</option><option>Savings</option><option>Credit card</option><option>Cash</option><option>Investment</option><option>Wallet</option></select></label><label>Starting balance<input required id="starting-balance" type="number" step="0.01" placeholder="0.00" /></label></div><button class="primary-button full-width" type="submit">Add account</button></form>
+    </div>
+    <div class="modal-backdrop hidden" id="category-modal" role="dialog" aria-modal="true">
+      <form class="modal category-modal" id="category-form"><button class="modal-close" type="button" data-close="category-modal" aria-label="Close">×</button><p class="eyebrow">Category library</p><h2 id="category-title">Add a category</h2><p class="modal-subtitle">Create and maintain labels that fit your life.</p><div class="category-manager-list" id="category-manager-list"></div><input type="hidden" id="category-editing-id" /><div class="form-grid"><label>Category name<input required id="category-name" placeholder="e.g. Health" /></label><label>Category type<select id="category-type"><option value="expense">Expense</option><option value="income">Income</option></select></label></div><div class="category-form-actions"><button class="secondary-button hidden" id="cancel-category-edit" type="button">Cancel edit</button><button class="primary-button" type="submit" id="category-submit">Add category</button></div></form>
+    </div>
+    <script src="../src/app.js"></script>
+  </body>
+</html>
