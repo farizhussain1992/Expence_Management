@@ -14,8 +14,17 @@ const contentTypes = {
 };
 
 const server = http.createServer((request, response) => {
-  const requestPath = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
-  const relativePath = requestPath === "/" || requestPath === "/index.html" ? "public/index.html" : requestPath === "/transactions.html" ? "public/transactions.html" : requestPath.slice(1);
+  let relativePath;
+  try {
+    const host = request.headers.host || "localhost";
+    const requestUrl = new URL(request.url, `http://${host}`);
+    const requestPath = decodeURIComponent(requestUrl.pathname);
+    relativePath = requestPath === "/" || requestPath === "/index.html" ? "public/index.html" : requestPath === "/transactions.html" ? "public/transactions.html" : requestPath.slice(1);
+  } catch {
+    response.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+    response.end("Bad Request");
+    return;
+  }
   const filePath = path.resolve(root, relativePath);
 
   if (!filePath.startsWith(root + path.sep)) {

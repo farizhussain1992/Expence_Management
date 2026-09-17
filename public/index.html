@@ -20,7 +20,7 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" href="#" aria-label="Lumen home">
+        <a class="brand" href="index.html" aria-label="Lumen home">
           <span class="brand-mark">✦</span>
           <span>Lumen</span>
         </a>
@@ -47,13 +47,14 @@
         <header class="topbar">
           <div class="mobile-brand"><span class="brand-mark">✦</span> Lumen</div>
           <div class="date-stamp"><span class="status-dot"></span> Your space · <span id="today-label"></span></div>
+          <button class="avatar theme-avatar" type="button" id="theme-toggle-topbar" aria-label="Toggle theme">☼</button>
           <button class="avatar" aria-label="User profile">AK</button>
         </header>
 
         <section class="hero dashboard-hero" id="overview">
           <div>
             <span class="hero-badge"><i></i> Live overview</span>
-            <p class="eyebrow">Monday, <span id="hero-date"></span></p>
+            <p class="eyebrow" id="hero-date"></p>
             <h1>Good morning, Alex <span class="wave">✋</span></h1>
             <p class="hero-copy">Here’s the shape of your money this month.</p>
           </div>
@@ -62,10 +63,10 @@
 
         <section class="stats-grid" aria-label="Financial summary">
           <article class="stat-card feature-card">
-            <div class="stat-heading"><span class="stat-icon violet">↗</span><span>Net cash flow</span><span class="trend positive" id="flow-trend">+12.4%</span></div>
+            <div class="stat-heading"><span class="stat-icon violet">↗</span><span>Net cash flow</span><span class="trend positive" id="flow-trend">+0.0%</span></div>
             <div class="stat-value" id="net-flow">$0.00</div>
-            <div class="sparkline" aria-hidden="true"><span style="height: 30%"></span><span style="height: 46%"></span><span style="height: 38%"></span><span style="height: 62%"></span><span style="height: 51%"></span><span style="height: 76%"></span><span style="height: 69%"></span><span style="height: 92%"></span></div>
-            <p class="stat-caption">vs. previous 30 days</p>
+            <div class="sparkline" id="sparkline" aria-hidden="true"><span style="height: 30%"></span><span style="height: 46%"></span><span style="height: 38%"></span><span style="height: 62%"></span><span style="height: 51%"></span><span style="height: 76%"></span><span style="height: 69%"></span><span style="height: 92%"></span></div>
+            <p class="stat-caption">vs. previous period</p>
           </article>
           <article class="stat-card">
             <div class="stat-heading"><span class="stat-icon green">↓</span><span>Total income</span></div>
@@ -77,7 +78,7 @@
             <div class="stat-heading"><span class="stat-icon orange">↑</span><span>Total expenses</span></div>
             <div class="stat-value" id="total-expenses">$0.00</div>
             <p class="stat-caption">Money out this month</p>
-            <div class="progress-line"><span class="expense-progress"></span></div>
+            <div class="progress-line"><span id="expense-progress" class="expense-progress"></span></div>
           </article>
           <article class="stat-card">
             <div class="stat-heading"><span class="stat-icon blue">◎</span><span>Total balance</span></div>
@@ -131,10 +132,10 @@
       </form>
     </div>
 
-    <div class="modal-backdrop hidden" id="account-modal" role="dialog" aria-modal="true">
-      <form class="modal" id="account-form"><button class="modal-close" type="button" data-close="account-modal" aria-label="Close">×</button><p class="eyebrow">New account</p><h2>Add an account</h2><p class="modal-subtitle">See everything in one calm view.</p><div class="form-grid"><label>Account name<input required id="account-name" placeholder="e.g. Travel fund" /></label><label>Account type<select id="account-type"><option>Checking</option><option>Savings</option><option>Credit card</option><option>Cash</option><option>Investment</option><option>Wallet</option></select></label><label>Starting balance<input required id="starting-balance" type="number" step="0.01" placeholder="0.00" /></label></div><button class="primary-button full-width" type="submit">Add account</button></form>
+    <div class="modal-backdrop hidden" id="account-modal" role="dialog" aria-modal="true" aria-labelledby="account-title">
+      <form class="modal" id="account-form"><button class="modal-close" type="button" data-close="account-modal" aria-label="Close">×</button><p class="eyebrow">New account</p><h2 id="account-title">Add an account</h2><p class="modal-subtitle">See everything in one calm view.</p><div class="form-grid"><label>Account name<input required id="account-name" placeholder="e.g. Travel fund" /></label><label>Account type<select id="account-type"><option>Checking</option><option>Savings</option><option>Credit card</option><option>Cash</option><option>Investment</option><option>Wallet</option></select></label><label>Starting balance<input required id="starting-balance" type="number" step="0.01" placeholder="0.00" /></label></div><button class="primary-button full-width" type="submit">Add account</button></form>
     </div>
-    <div class="modal-backdrop hidden" id="category-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop hidden" id="category-modal" role="dialog" aria-modal="true" aria-labelledby="category-title">
       <form class="modal category-modal" id="category-form"><button class="modal-close" type="button" data-close="category-modal" aria-label="Close">×</button><p class="eyebrow">Category library</p><h2 id="category-title">Add a category</h2><p class="modal-subtitle">Create and maintain labels that fit your life.</p><div class="category-manager-list" id="category-manager-list"></div><input type="hidden" id="category-editing-id" /><div class="form-grid"><label>Category name<input required id="category-name" placeholder="e.g. Health" /></label><label>Category type<select id="category-type"><option value="expense">Expense</option><option value="income">Income</option></select></label></div><div class="category-form-actions"><button class="secondary-button hidden" id="cancel-category-edit" type="button">Cancel edit</button><button class="primary-button" type="submit" id="category-submit">Add category</button></div></form>
     </div>
     <script src="../src/app.js"></script>
